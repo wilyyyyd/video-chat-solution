@@ -4,8 +4,6 @@
     <string name="videochat_follow">+ 关注</string>
     <string name="videochat_followed">已关注</string>
     <string name="videochat_view_profile">查看 %s 的主页（开发中）</string>
-    <string name="videochat_tab_messages">消息</string>
-    <string name="videochat_tab_contacts">联系人</string>
 
     <string name="videochat_stat_following">关注</string>
     <string name="videochat_stat_followers">粉丝</string>

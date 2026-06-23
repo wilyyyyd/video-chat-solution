@@ -1,11 +1,12 @@
 package io.trtc.uikit.videochat.page.profile
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.tencent.imsdk.v2.V2TIMConversation
 import com.tencent.imsdk.v2.V2TIMUserFullInfo
+import com.tencent.imsdk.v2.V2TIMUserFullInfo.V2TIM_GENDER_FEMALE
+import com.tencent.imsdk.v2.V2TIMUserFullInfo.V2TIM_GENDER_MALE
 import com.tencent.qcloud.tuicore.TUIConstants
 import com.tencent.qcloud.tuicore.TUICore
 import com.tencent.qcloud.tuicore.util.ScreenUtil.dip2px
@@ -15,6 +16,9 @@ import io.trtc.uikit.videochat.manager.VideoCallStore
 import io.trtc.uikit.videochat.manager.UserInfoStore
 import io.trtc.uikit.videochat.manager.UserInfoStore.FollowInfoCallback
 import io.trtc.tuikit.atomicxcore.api.call.CallMediaType
+import io.trtc.tuikit.atomicxcore.api.login.Gender
+import io.trtc.tuikit.atomicxcore.api.login.UserProfile
+import io.trtc.uikit.videochat.common.widget.toast.VideoChatToast
 import kotlinx.coroutines.launch
 
 class UserProfilePage : AppCompatActivity() {
@@ -58,7 +62,7 @@ class UserProfilePage : AppCompatActivity() {
             userFullInfo = info
             with(binding) {
                 backgroundView.setBackgroundUrl(info.faceUrl)
-                userInfoView.bind(info, showSignature = true)
+                userInfoView.bind(convertToUserProfile(info), showSignature = true)
                 profileMomentsView.loadPhotos(List(6) { info.faceUrl })
             }
         })
@@ -105,15 +109,33 @@ class UserProfilePage : AppCompatActivity() {
         if (UserInfoStore.shared.isFollowing(userId)) {
             UserInfoStore.shared.unFellowUsers(ids, onError = {
                 if (!isFinishing && !isDestroyed) {
-                    Toast.makeText(this, R.string.videochat_unfollow_failed, Toast.LENGTH_SHORT).show()
+                    VideoChatToast.show(this.getString(R.string.videochat_unfollow_failed))
                 }
             })
         } else {
             UserInfoStore.shared.fellowUser(ids, onError = {
                 if (!isFinishing && !isDestroyed) {
-                    Toast.makeText(this, R.string.videochat_follow_failed, Toast.LENGTH_SHORT).show()
+                    VideoChatToast.show(this.getString(R.string.videochat_follow_failed))
                 }
             })
         }
+    }
+
+    private fun convertToUserProfile(user: V2TIMUserFullInfo?): UserProfile {
+        val targetUser = UserProfile()
+        if (user == null) {
+            return targetUser
+        }
+        targetUser.userID = user.userID
+        targetUser.nickname = user.nickName
+        targetUser.avatarURL = user.faceUrl
+        targetUser.birthday = user.birthday
+        targetUser.selfSignature = user.selfSignature
+        targetUser.gender = when(user.gender) {
+            V2TIM_GENDER_MALE -> Gender.MALE
+            V2TIM_GENDER_FEMALE -> Gender.FEMALE
+            else -> Gender.UNKNOWN
+        }
+        return targetUser
     }
 }

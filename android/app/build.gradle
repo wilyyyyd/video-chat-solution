@@ -32,7 +32,8 @@ android {
 
 dependencies {
     api project(':video-chat')
-    api project(':tebeautykit')
+    api project(':tuicontact')
+    api project(':tuisearch')
 
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.7.0'

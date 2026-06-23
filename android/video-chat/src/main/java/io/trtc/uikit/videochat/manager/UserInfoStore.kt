@@ -2,6 +2,7 @@ package io.trtc.uikit.videochat.manager
 
 import android.util.Log
 import com.tencent.cloud.tuikit.engine.common.ContextProvider
+import com.tencent.imsdk.common.IMLog
 import com.tencent.imsdk.v2.V2TIMFollowInfo
 import com.tencent.imsdk.v2.V2TIMFollowOperationResult
 import com.tencent.imsdk.v2.V2TIMFriendshipListener
@@ -21,6 +22,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 internal class UserInfoStore private constructor() {
     private var selfId = ""
@@ -135,6 +137,22 @@ internal class UserInfoStore private constructor() {
         }
         val ageLabel = userInfo.birthday.let { "$it" }
         return listOf(genderLabel, ageLabel)
+    }
+
+    internal fun dataReport(type : Int) {
+        val param = JSONObject().apply {
+            put("UIComponentType", type.toLong())
+        }.toString()
+        V2TIMManager.getInstance()
+            .callExperimentalAPI("reportTUIFeatureUsage", param, object : V2TIMValueCallback<Any> {
+                override fun onSuccess(t: Any?) {
+                    // do nothing
+                }
+
+                override fun onError(code: Int, desc: String?) {
+                    IMLog.e("video-chat-DataReporter", "reportFeatureUsage failed: $code $desc")
+                }
+            })
     }
 
     private fun initSelfInfo() {

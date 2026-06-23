@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import io.trtc.uikit.videochat.common.Theme
-import io.trtc.uikit.videochat.page.conversation.ConversationPage
+import io.trtc.uikit.demo.message.MessagePage
 import io.trtc.uikit.videochat.page.settings.SettingsPage
 import io.trtc.uikit.demo.manager.SocialManager
 import io.trtc.uikit.demo.meet.MeetPageFragment
@@ -19,7 +19,7 @@ import io.trtc.uikit.demo.meet.MeetPageFragment
 class SocialMainFragment : Fragment() {
 
     val meetPageFragment = MeetPageFragment()
-    private val messageFragment = ConversationPage()
+    private val messageFragment = MessagePage()
     private val mineFragment = SettingsPage()
     private var activeFragment: Fragment = meetPageFragment
 

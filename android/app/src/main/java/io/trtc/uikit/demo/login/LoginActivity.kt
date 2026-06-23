@@ -61,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun login(userId: String) {
         if (userId.isEmpty()) {
-            Toast.makeText(this, R.string.app_userid_empty, Toast.LENGTH_SHORT).show()
+            VideoChatToast.show(this.getString(R.string.app_userid_empty))
             return
         }
         val userSig = GenerateTestUserSig.genTestUserSig(userId)

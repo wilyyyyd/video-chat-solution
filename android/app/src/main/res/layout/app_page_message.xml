@@ -33,7 +33,7 @@
                     android:id="@+id/tv_tab_messages"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/videochat_tab_messages"
+                    android:text="@string/app_tab_messages"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:gravity="center" />
@@ -43,7 +43,7 @@
                     android:layout_width="20dp"
                     android:layout_height="3dp"
                     android:layout_marginTop="4dp"
-                    android:background="@drawable/videochat_tab_indicator" />
+                    android:background="@drawable/app_tab_indicator" />
             </LinearLayout>
 
             <Space
@@ -61,7 +61,7 @@
                     android:id="@+id/tv_tab_contacts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/videochat_tab_contacts"
+                    android:text="@string/app_tab_contacts"
                     android:textSize="14sp"
                     android:gravity="center" />
 
@@ -70,7 +70,7 @@
                     android:layout_width="20dp"
                     android:layout_height="3dp"
                     android:layout_marginTop="4dp"
-                    android:background="@drawable/videochat_tab_indicator"
+                    android:background="@drawable/app_tab_indicator"
                     android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>

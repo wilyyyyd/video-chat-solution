@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -15,18 +16,20 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.tencent.imsdk.v2.V2TIMUserFullInfo
+
 import com.tencent.qcloud.tuicore.util.ScreenUtil.dip2px
-import io.trtc.uikit.videochat.R
-import io.trtc.uikit.videochat.common.Theme
-import io.trtc.uikit.videochat.common.widget.background.BackgroundView
-import io.trtc.uikit.videochat.common.widget.UserInfoView
-import io.trtc.uikit.videochat.manager.UserInfoStore
-import io.trtc.uikit.videochat.page.beauty.BeautyActivity
-import io.trtc.uikit.videochat.common.widget.dialog.VideoChatDialog
-import io.trtc.uikit.videochat.common.widget.toast.VideoChatToast
 import io.trtc.tuikit.atomicxcore.api.CompletionHandler
 import io.trtc.tuikit.atomicxcore.api.login.LoginStore
 import io.trtc.tuikit.atomicxcore.api.login.UserProfile
+import io.trtc.uikit.videochat.R
+import io.trtc.uikit.videochat.common.Theme
+import io.trtc.uikit.videochat.common.widget.UserInfoView
+import io.trtc.uikit.videochat.common.widget.background.BackgroundView
+import io.trtc.uikit.videochat.common.widget.dialog.VideoChatDialog
+import io.trtc.uikit.videochat.common.widget.toast.VideoChatToast
+import io.trtc.uikit.videochat.manager.UserInfoStore
+import io.trtc.uikit.videochat.page.beauty.BeautyActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -97,7 +100,7 @@ class SettingsPage : Fragment() {
                 return@collect
             }
             backgroundView.setBackgroundUrl(it.avatarURL)
-            updateUserProfileView(it)
+            userInfoView.bind(it, showSignature = true)
         }
     }
 
@@ -191,14 +194,6 @@ class SettingsPage : Fragment() {
             }
             setOnClickListener { showLogoutDialog() }
         }
-    }
-
-    private fun updateUserProfileView(profile: UserProfile) {
-        UserInfoStore.shared.getUserProfile(profile.userID, onResult = { info ->
-            if (info != null) {
-                userInfoView.bind(info, showSignature = true)
-            }
-        })
     }
 
     private fun initOnlineStatus() {

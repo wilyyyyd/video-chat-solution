@@ -6,12 +6,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.tencent.qcloud.tuicore.permission.PermissionCallback
 import io.trtc.uikit.videochat.R
 import io.trtc.uikit.videochat.common.utils.PermissionRequest
 import io.trtc.uikit.videochat.page.beauty.tebeauty.TEBeautyManager
 import com.tencent.rtmp.ui.TXCloudVideoView
 import com.tencent.trtc.TRTCCloud
+import com.trtc.tuikit.common.permission.PermissionCallback
 import io.trtc.tuikit.atomicxcore.api.call.CallMediaType
 
 class BeautyActivity : AppCompatActivity() {

@@ -25,9 +25,7 @@ android {
 dependencies {
     //api fileTree(dir: 'libs', include: ['*.aar'])
     api project(':tuiconversation')
-    api project(':tuicontact')
     api project(':tuichat')
-    api project(':tuisearch')
     api project(':tebeautykit')
     api "com.tencent.imsdk:imsdk-plus:latest.release"
     api "com.tencent.liteav.tuikit:tuicore:latest.release"

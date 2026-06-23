@@ -15,6 +15,10 @@
     <string name="app_nav_message">消息</string>
     <string name="app_nav_mine">我的</string>
 
+    <!-- Message page tabs -->
+    <string name="app_tab_messages">消息</string>
+    <string name="app_tab_contacts">联系人</string>
+
     <!-- Login -->
     <string name="app_userid_empty">UserId 不能为空</string>
     <string name="app_login_failed">登录失败</string>

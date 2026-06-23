@@ -6,13 +6,13 @@ import android.view.View
 import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import com.tencent.liteav.base.Log
-import com.tencent.qcloud.tuicore.permission.PermissionCallback
 import io.trtc.uikit.videochat.R
 import io.trtc.uikit.videochat.common.utils.PermissionRequest
 import io.trtc.uikit.videochat.common.widget.button.ControlButton
 import io.trtc.uikit.videochat.common.widget.toast.VideoChatToast
 import io.trtc.uikit.videochat.page.beauty.BeautyIntegration
 import com.trtc.tuikit.common.imageloader.ImageLoader
+import com.trtc.tuikit.common.permission.PermissionCallback
 import io.trtc.tuikit.atomicxcore.api.call.CallMediaType
 import io.trtc.tuikit.atomicxcore.api.call.CallStore
 import io.trtc.tuikit.atomicxcore.api.device.AudioRoute

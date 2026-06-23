@@ -68,7 +68,7 @@ object Theme {
     // ── 文字渐变 ──
 
     /** 对 TextView 应用粉紫水平渐变 */
-    internal fun applyGradientText(tv: TextView) {
+    fun applyGradientText(tv: TextView) {
         tv.post {
             val width = tv.paint.measureText(tv.text.toString())
             tv.paint.shader = LinearGradient(

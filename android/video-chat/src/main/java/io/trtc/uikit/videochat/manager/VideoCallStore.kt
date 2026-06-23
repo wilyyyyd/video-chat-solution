@@ -7,13 +7,13 @@ import com.tencent.cloud.tuikit.engine.common.ContextProvider
 import com.tencent.liteav.base.Log
 import com.tencent.qcloud.tuicore.TUIConfig
 import com.tencent.qcloud.tuicore.interfaces.ITUIService
-import com.tencent.qcloud.tuicore.permission.PermissionCallback
 import io.trtc.uikit.videochat.R
 import io.trtc.uikit.videochat.common.utils.PermissionRequest
 import io.trtc.uikit.videochat.page.call.VideoCallPage
 import io.trtc.uikit.videochat.common.widget.toast.VideoChatToast
 import com.trtc.tuikit.common.foregroundservice.AudioForegroundService
 import com.trtc.tuikit.common.foregroundservice.VideoForegroundService
+import com.trtc.tuikit.common.permission.PermissionCallback
 import io.trtc.tuikit.atomicxcore.api.CompletionHandler
 import io.trtc.tuikit.atomicxcore.api.call.CallListener
 import io.trtc.tuikit.atomicxcore.api.call.CallMediaType
@@ -118,6 +118,19 @@ class VideoCallStore private constructor() : ITUIService {
                 completion?.onFailure(code, desc)
             }
         })
+    }
+
+    internal fun queryOfflineCall() {
+        val selfUser = CallStore.shared.observerState.selfInfo.value
+        val mediaType = CallStore.shared.observerState.activeCall.value.mediaType
+        if (CallParticipantStatus.None == selfUser.status) {
+            return
+        }
+
+        if (null == mediaType) {
+            return
+        }
+        startVideoCallActivity()
     }
 
     internal fun selfIsCaller() : Boolean {

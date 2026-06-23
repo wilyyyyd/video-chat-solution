@@ -8,9 +8,9 @@ import android.os.Build
 import com.tencent.qcloud.tuicore.TUIConfig
 import com.tencent.qcloud.tuicore.TUIConstants
 import com.tencent.qcloud.tuicore.TUICore
-import com.tencent.qcloud.tuicore.permission.PermissionCallback
-import com.tencent.qcloud.tuicore.permission.PermissionRequester
 import com.tencent.qcloud.tuicore.util.TUIBuild
+import com.trtc.tuikit.common.permission.PermissionCallback
+import com.trtc.tuikit.common.permission.PermissionRequester
 import io.trtc.uikit.videochat.R
 import io.trtc.tuikit.atomicxcore.api.call.CallMediaType
 
@@ -38,7 +38,11 @@ object PermissionRequest {
 
         val permissionCallback: PermissionCallback = object : PermissionCallback() {
             override fun onGranted() {
-                callback?.onGranted()
+                requestBluetoothPermission(context, object : PermissionCallback() {
+                    override fun onGranted() {
+                        callback?.onGranted()
+                    }
+                })
             }
 
             override fun onDenied() {
@@ -51,6 +55,42 @@ object PermissionRequest {
             .description("${context.getString(R.string.videochat_permission_tips, title)} $reason".trimIndent())
             .settingsTip("${context.getString(R.string.videochat_permission_tips, title)} $reason".trimIndent())
             .callback(permissionCallback)
+            .request()
+    }
+
+    /**
+     * Android S(31) need apply for Nearby devices(Bluetooth) permission to support bluetooth headsets.
+     * Please refer to: https://developer.android.com/guide/topics/connectivity/bluetooth/permissions
+     */
+    private fun requestBluetoothPermission(context: Context, callback: PermissionCallback) {
+        if (TUIBuild.getVersionInt() < Build.VERSION_CODES.S) {
+            callback.onGranted()
+            return
+        }
+        if (PermissionRequester.newInstance(Manifest.permission.BLUETOOTH_CONNECT).has()) {
+            callback.onGranted()
+            return
+        }
+
+        val title = context.getString(R.string.videochat_permission_bluetooth)
+        val reason = context.getString(R.string.videochat_permission_bluetooth_reason)
+        val applicationInfo = context.applicationInfo
+        val appName = context.packageManager.getApplicationLabel(applicationInfo).toString()
+        PermissionRequester.newInstance(Manifest.permission.BLUETOOTH_CONNECT)
+            .title(context.getString(R.string.videochat_permission_title, appName, title))
+            .description(reason)
+            .settingsTip(reason)
+            .callback(object : PermissionCallback() {
+                override fun onGranted() {
+                    callback.onGranted()
+                }
+
+                override fun onDenied() {
+                    super.onDenied()
+                    //bluetooth is unnecessary permission, return permission granted
+                    callback.onGranted()
+                }
+            })
             .request()
     }
 

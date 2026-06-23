@@ -28,10 +28,10 @@ import io.trtc.uikit.videochat.common.widget.toast.VideoChatToast
 import io.trtc.uikit.videochat.manager.VideoCallStore
 import io.trtc.uikit.videochat.page.call.hint.InviteeInfoView
 import com.trtc.tuikit.common.FullScreenActivity
-import com.tencent.qcloud.tuicore.permission.PermissionCallback
 import io.trtc.uikit.videochat.page.beauty.tebeauty.TEBeautyManager
 import com.trtc.tuikit.common.imageloader.ImageLoader
 import com.trtc.tuikit.common.imageloader.ImageOptions
+import com.trtc.tuikit.common.permission.PermissionCallback
 import com.trtc.tuikit.common.permission.PermissionRequester
 import com.trtc.tuikit.common.ui.floatwindow.FloatWindowManager
 import io.trtc.tuikit.atomicxcore.api.call.CallEndReason

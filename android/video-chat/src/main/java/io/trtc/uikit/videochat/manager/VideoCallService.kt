@@ -1,9 +1,14 @@
 package io.trtc.uikit.videochat.manager
 
+import android.app.Activity
+import android.app.Application
 import android.content.Context
+import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import com.tencent.cloud.tuikit.engine.common.ContextProvider
+import com.tencent.imsdk.v2.V2TIMManager
+import com.tencent.imsdk.v2.V2TIMManager.V2TIM_STATUS_LOGINED
 import com.tencent.qcloud.tuicore.ServiceInitializer
 import com.tencent.qcloud.tuicore.TUIConstants
 import com.tencent.qcloud.tuicore.TUICore
@@ -15,9 +20,12 @@ import com.tencent.qcloud.tuicore.interfaces.TUIExtensionInfo
 import io.trtc.uikit.videochat.R
 import io.trtc.tuikit.atomicxcore.api.call.CallMediaType
 import io.trtc.tuikit.atomicxcore.api.call.CallParams
+import io.trtc.uikit.videochat.page.call.VideoCallPage
+import java.lang.ref.WeakReference
 
 class VideoCallService : ServiceInitializer(), ITUIService {
     private var appContext: Context? = null
+    private var callPageRef = WeakReference<VideoCallPage>(null)
     private val tuiExtension = object : ITUIExtension {
         override fun onGetExtension(extensionID: String?, param: Map<String?, Any?>?): List<TUIExtensionInfo?>? {
             if (TextUtils.equals(extensionID, TUIConstants.TUIChat.Extension.InputMore.CLASSIC_EXTENSION_ID)) {
@@ -41,6 +49,50 @@ class VideoCallService : ServiceInitializer(), ITUIService {
         appContext = ContextProvider.getApplicationContext()
         TUICore.registerExtension(TUIConstants.TUIChat.Extension.InputMore.CLASSIC_EXTENSION_ID, tuiExtension)
         TUICore.registerEvent(TUIConstants.TUILogin.EVENT_IMSDK_INIT_STATE_CHANGED, TUIConstants.TUILogin.EVENT_SUB_KEY_START_INIT, tuiNotification)
+        registerActivityLifecycleCallbacks(context)
+    }
+
+    private fun registerActivityLifecycleCallbacks(context: Context) {
+        if (context is Application) {
+            context.registerActivityLifecycleCallbacks(object : Application.ActivityLifecycleCallbacks {
+                private var isCallPageStopped = false
+                override fun onActivityCreated(activity: Activity, bundle: Bundle?) {}
+                override fun onActivityStarted(activity: Activity) {
+                    if (activity is VideoCallPage) {
+                        isCallPageStopped = false
+                    }
+                }
+
+                override fun onActivityResumed(activity: Activity) {
+                    if (activity is VideoCallPage) {
+                        callPageRef = WeakReference(activity)
+                        return
+                    }
+                    ensureCallPageInForeground()
+                }
+                override fun onActivityPaused(activity: Activity) {}
+                override fun onActivityStopped(activity: Activity) {
+                    if (activity is VideoCallPage) {
+                        isCallPageStopped = true
+                    }
+                }
+
+                override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+                override fun onActivityDestroyed(activity: Activity) {
+                    if (activity is VideoCallPage && activity == callPageRef.get()) {
+                        callPageRef.clear()
+                    }
+                }
+
+                private fun ensureCallPageInForeground() {
+                    val callPage = callPageRef.get() ?: return
+                    if (!isCallPageStopped) return
+                    if (callPage.isInPictureInPictureMode) return
+                    if (V2TIMManager.getInstance().loginStatus != V2TIM_STATUS_LOGINED) return
+                    VideoCallStore.shared.queryOfflineCall()
+                }
+            })
+        }
     }
 
     private fun getClassicChatInputMoreExtension(param: Map<String?, Any?>?): List<TUIExtensionInfo>? {

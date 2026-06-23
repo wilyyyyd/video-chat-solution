@@ -12,6 +12,8 @@ import androidx.transition.TransitionManager
 import com.tencent.imsdk.v2.V2TIMUserFullInfo
 import com.tencent.imsdk.v2.V2TIMUserFullInfo.V2TIM_GENDER_FEMALE
 import com.tencent.imsdk.v2.V2TIMUserFullInfo.V2TIM_GENDER_MALE
+import io.trtc.tuikit.atomicxcore.api.login.Gender
+import io.trtc.tuikit.atomicxcore.api.login.UserProfile
 import io.trtc.uikit.videochat.R
 import io.trtc.uikit.videochat.common.Theme
 import io.trtc.uikit.videochat.common.widget.toast.VideoChatToast
@@ -42,11 +44,8 @@ class UserInfoView @JvmOverloads constructor(
         binding.tvToggle.setOnClickListener { toggleExpand() }
     }
 
-    internal fun bind(userInfo: V2TIMUserFullInfo, showSignature: Boolean = false) {
-        var userName = userInfo.userID
-        if (!userInfo.nickName.isNullOrEmpty()) {
-            userName = userInfo.nickName
-        }
+    internal fun bind(userInfo: UserProfile, showSignature: Boolean = false) {
+        val userName = userInfo.nickname ?: userInfo.userID
         with(binding) {
             tvName.text = userName
             Theme.applyGradientText(tvName)
@@ -54,7 +53,7 @@ class UserInfoView @JvmOverloads constructor(
             tvUserId.setOnClickListener {
                 copyToClipboard(userInfo.userID)
             }
-            avatarView.loadAvatar(userInfo.faceUrl)
+            avatarView.loadAvatar(userInfo.avatarURL)
             layoutTags.removeAllViews()
             addGenderTag(userInfo.gender)
             addTag(context.getString(R.string.videochat_age_format, userInfo.birthday))
@@ -122,10 +121,10 @@ class UserInfoView @JvmOverloads constructor(
         VideoChatToast.show(context.getString(R.string.videochat_user_id_copied))
     }
 
-    private fun addGenderTag(gender: Int) {
+    private fun addGenderTag(gender: Gender?) {
         val label = when (gender) {
-            V2TIM_GENDER_MALE -> context.getString(R.string.videochat_gender_male)
-            V2TIM_GENDER_FEMALE -> context.getString(R.string.videochat_gender_female)
+            Gender.MALE -> context.getString(R.string.videochat_gender_male)
+            Gender.FEMALE -> context.getString(R.string.videochat_gender_female)
             else -> context.getString(R.string.videochat_gender_secret)
         }
         addTag(label)
