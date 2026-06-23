@@ -12,6 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.tencent.imsdk.v2.V2TIMUserFullInfo
 import io.trtc.uikit.videochat.R
 import io.trtc.uikit.videochat.common.Theme
+import io.trtc.uikit.videochat.common.utils.VideoChatDataReporter
 import io.trtc.uikit.videochat.manager.UserInfoStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -66,6 +67,7 @@ class MeetPage @JvmOverloads constructor(
     init {
         initView()
         adapter.registerAdapterDataObserver(dataObserver)
+        VideoChatDataReporter.reportMetrics(VideoChatDataReporter.MEET_PAGE)
     }
 
     override fun onAttachedToWindow() {

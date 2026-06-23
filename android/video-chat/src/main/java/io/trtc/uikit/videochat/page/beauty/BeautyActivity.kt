@@ -13,11 +13,11 @@ import com.tencent.rtmp.ui.TXCloudVideoView
 import com.tencent.trtc.TRTCCloud
 import com.trtc.tuikit.common.permission.PermissionCallback
 import io.trtc.tuikit.atomicxcore.api.call.CallMediaType
+import io.trtc.uikit.videochat.common.utils.VideoChatDataReporter
 
 class BeautyActivity : AppCompatActivity() {
 
     private lateinit var videoView: TXCloudVideoView
-    private var isViewInitialized = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,16 +29,14 @@ class BeautyActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        VideoChatDataReporter.reportMetrics(VideoChatDataReporter.BEAUTY_PANEL)
     }
 
     override fun onResume() {
         super.onResume()
         PermissionRequest.requestPermissions(application, CallMediaType.Video, object : PermissionCallback() {
             override fun onGranted() {
-                if (!isViewInitialized) {
-                    isViewInitialized = true
                     initViews()
-                }
             }
 
             override fun onDenied() {

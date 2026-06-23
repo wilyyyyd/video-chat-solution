@@ -2,7 +2,6 @@ package io.trtc.uikit.videochat.manager
 
 import android.util.Log
 import com.tencent.cloud.tuikit.engine.common.ContextProvider
-import com.tencent.imsdk.common.IMLog
 import com.tencent.imsdk.v2.V2TIMFollowInfo
 import com.tencent.imsdk.v2.V2TIMFollowOperationResult
 import com.tencent.imsdk.v2.V2TIMFriendshipListener
@@ -22,7 +21,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.json.JSONObject
 
 internal class UserInfoStore private constructor() {
     private var selfId = ""
@@ -44,8 +42,8 @@ internal class UserInfoStore private constructor() {
             }
         }
 
-        override fun onMutualFollowersListChanged(userInfoList: MutableList<V2TIMUserFullInfo>?, isAdd: Boolean) {
-            super.onMutualFollowersListChanged(userInfoList, isAdd)
+        override fun onMyFollowersListChanged(userInfoList: MutableList<V2TIMUserFullInfo>?, isAdd: Boolean) {
+            super.onMyFollowersListChanged(userInfoList, isAdd)
             if (userInfoList.isNullOrEmpty()) return
             _selfFollowers.update {
                 val newFollowers =  LinkedHashSet(it)
@@ -64,7 +62,6 @@ internal class UserInfoStore private constructor() {
     }
 
     init {
-        V2TIMManager.getFriendshipManager().addFriendListener(friendshipListener)
         initSelfInfo()
         observeSelfUser()
     }
@@ -139,26 +136,11 @@ internal class UserInfoStore private constructor() {
         return listOf(genderLabel, ageLabel)
     }
 
-    internal fun dataReport(type : Int) {
-        val param = JSONObject().apply {
-            put("UIComponentType", type.toLong())
-        }.toString()
-        V2TIMManager.getInstance()
-            .callExperimentalAPI("reportTUIFeatureUsage", param, object : V2TIMValueCallback<Any> {
-                override fun onSuccess(t: Any?) {
-                    // do nothing
-                }
-
-                override fun onError(code: Int, desc: String?) {
-                    IMLog.e("video-chat-DataReporter", "reportFeatureUsage failed: $code $desc")
-                }
-            })
-    }
-
     private fun initSelfInfo() {
         selfId = LoginStore.shared.loginState.loginUserInfo.value?.userID ?: ""
         if (selfId.isNotEmpty()) {
-            fetchFollowingIds()
+            fetchFollowingIds("")
+            fetchFollowerIds("")
         }
     }
 
@@ -169,20 +151,28 @@ internal class UserInfoStore private constructor() {
                 val loginUserId = loginUserInfo.userID
                 if (loginUserId.isNotEmpty() && loginUserId != selfId) {
                     selfId = loginUserId
-                    fetchFollowingIds()
-                } else {
-                    resetState()
+                    _selfFollowingUsers.value = LinkedHashSet()
+                    _selfFollowers.value = LinkedHashSet()
+                    fetchFollowingIds("")
+                    fetchFollowerIds("")
+                    V2TIMManager.getFriendshipManager().addFriendListener(friendshipListener)
                 }
             }
         }
     }
 
-    private fun fetchFollowingIds() {
-        V2TIMManager.getFriendshipManager().getMyFollowingList("", object : V2TIMValueCallback<V2TIMUserInfoResult> {
+    private fun fetchFollowingIds(cursor: String) {
+        V2TIMManager.getFriendshipManager().getMyFollowingList(cursor, object : V2TIMValueCallback<V2TIMUserInfoResult> {
             override fun onSuccess(result: V2TIMUserInfoResult) {
                 val ids = result.userFullInfoList?.mapNotNull { it.userID } ?: emptyList()
-                _selfFollowingUsers.value = LinkedHashSet(ids)
-                Log.i(TAG, "fetchFollowingIds success, count: ${ids.size}")
+                _selfFollowingUsers.update { existing ->
+                    LinkedHashSet(existing).apply { addAll(ids) }
+                }
+                val nextCursor = result.nextCursor
+                Log.i(TAG, "fetchFollowingIds success, count: ${ids.size} cursor=$nextCursor")
+                if (nextCursor.isNotEmpty()) {
+                    fetchFollowingIds(nextCursor)
+                }
             }
             override fun onError(code: Int, desc: String?) {
                 Log.e(TAG, "fetchFollowingIds failed: code=$code, desc=$desc")
@@ -190,8 +180,23 @@ internal class UserInfoStore private constructor() {
         })
     }
 
-    private fun resetState() {
-        _selfFollowingUsers.value = LinkedHashSet()
+    private fun fetchFollowerIds(cursor: String) {
+        V2TIMManager.getFriendshipManager().getMyFollowersList(cursor, object : V2TIMValueCallback<V2TIMUserInfoResult> {
+            override fun onSuccess(result: V2TIMUserInfoResult) {
+                val ids = result.userFullInfoList?.mapNotNull { it.userID } ?: emptyList()
+                _selfFollowers.update { existing ->
+                    LinkedHashSet(existing).apply { addAll(ids) }
+                }
+                val nextCursor = result.nextCursor
+                Log.i(TAG, "fetchFollowerIds success, count: ${ids.size} cursor=$nextCursor")
+                if (nextCursor.isNotEmpty()) {
+                    fetchFollowerIds(nextCursor)
+                }
+            }
+            override fun onError(code: Int, desc: String?) {
+                Log.e(TAG, "fetchFollowerIds failed: code=$code, desc=$desc")
+            }
+        })
     }
 
     companion object {

@@ -17,6 +17,7 @@ import com.tencent.qcloud.tuikit.tuiconversation.config.classicui.TUIConversatio
 import com.tencent.qcloud.tuikit.tuiconversation.interfaces.IConversationListAdapter
 import com.tencent.qcloud.tuikit.tuiconversation.presenter.ConversationPresenter
 import io.trtc.uikit.videochat.common.Theme
+import io.trtc.uikit.videochat.common.utils.VideoChatDataReporter
 
 /**
  * 会话列表页面，纯会话列表展示。
@@ -40,6 +41,7 @@ class ConversationPage : Fragment() {
         val root = createRootView()
         listLayout = createListLayout()
         root.addView(listLayout)
+        VideoChatDataReporter.reportMetrics(VideoChatDataReporter.CONVERSATION_PAGE)
         return root
     }
 

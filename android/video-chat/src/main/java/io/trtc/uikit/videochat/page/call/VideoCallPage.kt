@@ -42,6 +42,7 @@ import io.trtc.tuikit.atomicxcore.api.call.CallStore
 import io.trtc.tuikit.atomicxcore.api.device.AudioRoute
 import io.trtc.tuikit.atomicxcore.api.device.DeviceStore
 import io.trtc.tuikit.atomicxcore.api.view.CallLayoutTemplate
+import io.trtc.uikit.videochat.common.utils.VideoChatDataReporter
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -77,6 +78,7 @@ class VideoCallPage : FullScreenActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         CallStore.shared.addListener(callStatusObserver)
         VideoCallStore.shared.startForegroundService()
+        VideoChatDataReporter.reportMetrics(VideoChatDataReporter.CALL_PAGE)
     }
 
     override fun onResume() {
