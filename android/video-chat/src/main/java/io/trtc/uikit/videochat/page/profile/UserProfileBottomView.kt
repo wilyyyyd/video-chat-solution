@@ -15,8 +15,8 @@ import io.trtc.uikit.videochat.R
 import io.trtc.uikit.videochat.databinding.VideochatLayoutProfileBottomViewBinding
 
 /**
- * 用户主页底部操作栏：搭讪（整体呼吸脉冲） / 通话 / 关注（心形）。
- * 背景为浅蓝紫渐变 + 顶部圆角，融合 app 整体设计风格。
+ * Profile page bottom action bar: Chat (breathing pulse) / Call / Follow (heart icon).
+ * Background is a light blue-purple gradient with top rounded corners, blending with the overall app design.
  */
 class UserProfileBottomView @JvmOverloads constructor(
     context: Context,
@@ -81,10 +81,10 @@ class UserProfileBottomView @JvmOverloads constructor(
     }
 
     /**
-     * 呼吸脉冲动画：
-     * - 搭讪按钮 scaleX/Y: 1.0 → 1.05 → 1.0
-     * - 图标 translationX ±2dp 快速横移
-     * - 整体 600ms，间隔 1.5s
+     * Breathing pulse animation:
+     * - Chat button scaleX/Y: 1.0 → 1.05 → 1.0
+     * - Icon translationX ±2dp fast horizontal shift
+     * - Overall 600ms, interval 1.5s
      */
     private fun performPulse() {
         pulseAnimator?.cancel()

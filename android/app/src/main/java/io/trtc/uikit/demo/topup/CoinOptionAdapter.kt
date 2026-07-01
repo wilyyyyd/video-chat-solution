@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import io.trtc.uikit.demo.R
 
 /**
- * 充值金币选项网格 Adapter。
- * 支持单选切换，选中项高亮粉紫渐变描边 + 星星闪动动画。
+ * Grid Adapter for top-up coin options.
+ * Supports single selection with highlighted pink-purple gradient border + twinkling star animation on the selected item.
  */
 class CoinOptionAdapter(
     private val options: List<CoinOption>,
@@ -24,55 +24,39 @@ class CoinOptionAdapter(
 
     companion object {
         // ============================================================
-        // ✨ 星星动画可调参数 —— 在这里集中控制所有动画表现
+        // ✨ Star animation tunable parameters — adjust all animation behavior here
         // ============================================================
 
-        /** 选中态：星星字号 (sp) */
         const val SPARKLE_SELECTED_TEXT_SIZE = 14f
 
-        /** 未选中态：星星字号 (sp) */
         const val SPARKLE_UNSELECTED_TEXT_SIZE = 12f
 
-        /** 选中态：星星颜色（亮金色） */
         const val SPARKLE_SELECTED_COLOR = 0xFFFFB800.toInt()
 
-        /** 未选中态：星星颜色（淡金色） */
         const val SPARKLE_UNSELECTED_COLOR = 0xFFFFB800.toInt()
 
-        /** 选中态：缩放最小值 */
         const val SPARKLE_SELECTED_SCALE_MIN = 0.8f
 
-        /** 选中态：缩放最大值 */
         const val SPARKLE_SELECTED_SCALE_MAX = 1.6f
 
-        /** 未选中态：缩放最小值 */
         const val SPARKLE_UNSELECTED_SCALE_MIN = 0.7f
 
-        /** 未选中态：缩放最大值 */
         const val SPARKLE_UNSELECTED_SCALE_MAX = 1.3f
 
-        /** 选中态：透明度最小值 */
         const val SPARKLE_SELECTED_ALPHA_MIN = 0.6f
 
-        /** 选中态：透明度最大值 */
         const val SPARKLE_SELECTED_ALPHA_MAX = 1f
 
-        /** 未选中态：透明度最小值 */
         const val SPARKLE_UNSELECTED_ALPHA_MIN = 0.4f
 
-        /** 未选中态：透明度最大值 */
         const val SPARKLE_UNSELECTED_ALPHA_MAX = 0.9f
 
-        /** 选中态：动画周期 (ms) */
         const val SPARKLE_SELECTED_DURATION_MS = 1200L
 
-        /** 未选中态：动画周期 (ms) */
         const val SPARKLE_UNSELECTED_DURATION_MS = 1800L
 
-        /** 选中态：是否启用旋转动画 */
         const val SPARKLE_SELECTED_ROTATION_ENABLED = true
 
-        /** 选中态：旋转角度（一个周期内旋转多少度） */
         const val SPARKLE_SELECTED_ROTATION_DEGREES = 360f
     }
 
@@ -98,7 +82,6 @@ class CoinOptionAdapter(
         val isSelected = position == selectedPosition
         holder.root.isSelected = isSelected
 
-        // 选中态：金币数量文字使用粉紫渐变
         if (isSelected) {
             applyGradientText(holder.tvAmount)
         } else {
@@ -106,7 +89,6 @@ class CoinOptionAdapter(
             holder.tvAmount.setTextColor(0xFF1F2937.toInt())
         }
 
-        // 所有项都有闪动星星，选中项星星更大更醒目
         startSparkleAnimation(holder, isSelected)
 
         holder.root.setOnClickListener {
@@ -138,13 +120,6 @@ class CoinOptionAdapter(
         }
     }
 
-    /**
-     * 所有金币项都有闪动星星动画。
-     * - 未选中：缩放 + 透明度闪烁
-     * - 选中：更大幅度缩放 + 全透明度 + 旋转，醒目突出
-     *
-     * 动画参数均可在 companion object 中调整。
-     */
     private fun startSparkleAnimation(holder: ViewHolder, isSelected: Boolean) {
         holder.tvSparkle.visibility = View.VISIBLE
         holder.sparkleAnimator?.cancel()

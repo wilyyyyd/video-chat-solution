@@ -16,10 +16,10 @@ import com.tencent.qcloud.tuicore.util.ScreenUtil.dip2px
 import io.trtc.uikit.videochat.R
 
 /**
- * 封面背景层 — 头像图 + 顶部暗色遮罩 + 底部白色渐变过渡。
- * 底部渐变过渡到白色，与信息卡片白色透明背景和谐衔接。
+ * Cover background layer — avatar image + top dark mask + bottom white gradient transition.
+ * Bottom gradient transitions to white, blending smoothly with the info card's white transparent background.
  *
- * 通用组件：UserProfilePage 和 SettingsPage 均使用。
+ * Shared component: used by both UserProfilePage and SettingsPage.
  */
 class BackgroundView @JvmOverloads constructor(
     context: Context,

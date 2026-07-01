@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 已有颜色（来自原 color.xml） -->
+    <!-- Existing colors (from original color.xml) -->
     <color name="videochat_color_blur_mask">#8022262E</color>
     <color name="videochat_color_white">#FFFFFFFF</color>
     <color name="videochat_button_bg_red">#E6594C</color>
     <color name="videochat_record_text_green">#12B969</color>
     <color name="videochat_color_transparent">#00000000</color>
 
-    <!-- 下沉的硬编码颜色 -->
+    <!-- Sunk hardcoded colors -->
     <color name="videochat_avatar_badge_green">#FF2ECC71</color>
     <color name="videochat_divider_light">#15000000</color>
     <color name="videochat_card_bg_white">#E6FFFFFF</color>

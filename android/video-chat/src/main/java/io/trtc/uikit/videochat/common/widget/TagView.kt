@@ -13,12 +13,12 @@ import io.trtc.uikit.videochat.R
 import io.trtc.uikit.videochat.common.Theme
 
 /**
- * 统一样式标签组件，支持两种视觉风格。
+ * Unified tag component supporting multiple visual styles.
  *
- * 用法：
+ * Usage:
  * ```
- * val tag = TagView(context, "旅行")                       // 默认紫色描边
- * val overlay = TagView(context, "北京", TagView.Style.OVERLAY)  // 白字半透明
+ * val tag = TagView(context, "Travel")                    // Default purple stroke
+ * val overlay = TagView(context, "Beijing", TagView.Style.OVERLAY)  // White text, semi-transparent
  * container.addView(tag, tag.defaultLayoutParams())
  * ```
  */
@@ -29,13 +29,9 @@ class TagView(
 ) : TextView(context) {
 
     enum class Style {
-        /** 用户主页 / 设置页 — 紫色描边标签（原尺寸） */
         OUTLINED,
-        /** 列表布局 — 浅紫小号标签 */
         SMALL_OUTLINED,
-        /** 卡片布局 — 毛玻璃白底深色字 */
         FROSTED,
-        /** 旧样式保留兼容 — 半透明黑底白字 */
         OVERLAY
     }
 
@@ -64,7 +60,7 @@ class TagView(
         setPadding(dip2px(10f), dip2px(4f), dip2px(10f), dip2px(4f))
     }
 
-    /** 列表布局用：更浅背景 + 浅紫描边 + 中紫文字 + 小尺寸 */
+    /** For list layout: lighter background + light purple stroke + medium purple text + small size */
     private fun applySmallOutlined() {
         setTextSize(TypedValue.COMPLEX_UNIT_SP, 10f)
         setTextColor(Theme.TEXT_TAG_LIGHT)
@@ -77,7 +73,6 @@ class TagView(
         setPadding(dip2px(8f), dip2px(3f), dip2px(8f), dip2px(3f))
     }
 
-    /** 卡片布局用：半透明白底 + 白字（同未关注按钮风格） */
     private fun applyFrosted() {
         setTextSize(TypedValue.COMPLEX_UNIT_SP, 9f)
         setTextColor(Theme.TEXT_WHITE)
@@ -100,7 +95,6 @@ class TagView(
         setPadding(dip2px(6f), dip2px(2f), dip2px(6f), dip2px(2f))
     }
 
-    /** 带间距的默认 LayoutParams，直接传给 addView 即可 */
     fun defaultLayoutParams(): MarginLayoutParams {
         return MarginLayoutParams(WRAP_CONTENT, WRAP_CONTENT).apply {
             marginEnd = dip2px(6f)

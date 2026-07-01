@@ -1,7 +1,7 @@
 package io.trtc.uikit.demo.meet
 
 /**
- * MeetPage 交互事件协议。
+ * MeetPage interaction event protocol.
  */
 interface MeetPageListener {
     fun onPageSelected(pageTag: String)

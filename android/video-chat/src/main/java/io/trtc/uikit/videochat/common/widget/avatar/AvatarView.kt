@@ -18,16 +18,16 @@ import io.trtc.uikit.videochat.R
 import io.trtc.uikit.videochat.common.Theme
 
 /**
- * 通用头像组件 — 支持圆角、渐变边框（三层套叠）、在线绿点 badge。
+ * Universal avatar component — supports rounded corners, gradient border (3-layer nesting), and online green dot badge.
  *
- * 渐变圈实现方式：三层 View 叠加（渐变圆 + 白色间隙圆 + 头像），
- * 完全在组件 bounds 之内，不会被外层 CardView 等裁剪。
+ * Gradient ring implementation: three-layer View stacking (gradient circle + white gap circle + avatar),
+ * entirely within the component bounds, won't be clipped by outer CardView.
  *
- * 使用方式：
- * - XML 中直接设置 layout_width/layout_height 控制大小
- * - [loadAvatar] 加载网络图片
- * - [showBorder] 开启/关闭粉紫渐变边框
- * - [showBadge] 开启/关闭在线绿点
+ * Usage:
+ * - Set layout_width/layout_height directly in XML to control size
+ * - [loadAvatar] loads network image
+ * - [showBorder] toggles pink-purple gradient border
+ * - [showBadge] toggles online green dot
  */
 class AvatarView @JvmOverloads constructor(
     context: Context,
@@ -78,7 +78,7 @@ class AvatarView @JvmOverloads constructor(
         clipChildren = false
         clipToPadding = false
 
-        // 解析 XML 属性
+        // Parse XML attributes
         var initShowBorder = false
         var initShowBadge = false
         if (attrs != null) {
@@ -97,7 +97,7 @@ class AvatarView @JvmOverloads constructor(
         _showBorder = initShowBorder
         _showBadge = initShowBadge
 
-        // 第一层：渐变圈（占满整个 View）
+        // Layer 1: gradient circle (fills entire View)
         gradientRingView = View(context).apply {
             layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
             background = createGradientBackground()
@@ -105,7 +105,7 @@ class AvatarView @JvmOverloads constructor(
         }
         addView(gradientRingView)
 
-        // 第二层：白色圈（居中，比外圈每边缩进 borderWidth — 位置由 onLayout 控制）
+        // Layer 2: white circle (centered, inset by borderWidth on each side — position controlled by onLayout)
         whiteRingView = View(context).apply {
             layoutParams = LayoutParams(0, 0) // 尺寸由 onMeasure/onLayout 控制
             background = createWhiteBackground()
@@ -113,7 +113,7 @@ class AvatarView @JvmOverloads constructor(
         }
         addView(whiteRingView)
 
-        // 第三层：头像 ImageView（位置由 onLayout 控制）
+        // Layer 3: avatar ImageView (position controlled by onLayout)
         val imageInset = if (initShowBorder) borderWidthPx + whiteGapPx else 0
         imageView = ImageView(context).apply {
             layoutParams = LayoutParams(0, 0) // 尺寸由 onMeasure/onLayout 控制
@@ -126,7 +126,7 @@ class AvatarView @JvmOverloads constructor(
     }
 
     // ─────────────────────────────────────────────────────
-    // 对外 API
+    // Public API
     // ─────────────────────────────────────────────────────
 
     fun loadAvatar(url: String?) {
@@ -162,17 +162,17 @@ class AvatarView @JvmOverloads constructor(
     }
 
     // ─────────────────────────────────────────────────────
-    // 内部实现
+    // Internal implementation
     // ─────────────────────────────────────────────────────
 
     private fun isCircular(): Boolean {
-        // cornerRadius >= 20dp 认为是圆形模式
+        // cornerRadius >= 20dp is treated as circular mode
         return cornerRadiusPx >= dip2px(20f)
     }
 
     private fun computeImageCornerRadius(inset: Int): Float {
         return if (isCircular()) {
-            // 圆形：半径足够大即可（outlineProvider 会裁成椭圆/圆）
+            // Circular: radius large enough to clip into ellipse/circle
             cornerRadiusPx.toFloat()
         } else {
             (cornerRadiusPx - inset).coerceAtLeast(0).toFloat()
@@ -208,7 +208,7 @@ class AvatarView @JvmOverloads constructor(
     private fun updateImageMargin() {
         val inset = if (_showBorder) borderWidthPx + whiteGapPx else 0
         imageView.outlineProvider = RoundOutlineProvider(computeImageCornerRadius(inset))
-        // 触发重新 measure + layout
+        // Trigger re-measure + layout
         requestLayout()
     }
 
@@ -231,20 +231,20 @@ class AvatarView @JvmOverloads constructor(
         val h = resolveSize(defaultSize, heightMeasureSpec)
         setMeasuredDimension(w, h)
 
-        // 渐变圈：占满整个 View
+        // Gradient circle: fills entire View
         gradientRingView.measure(
             MeasureSpec.makeMeasureSpec(w, MeasureSpec.EXACTLY),
             MeasureSpec.makeMeasureSpec(h, MeasureSpec.EXACTLY)
         )
 
-        // 白色圈：每边缩进 borderWidth
+        // White circle: inset by borderWidth on each side
         val whiteSize = (w - borderWidthPx * 2).coerceAtLeast(0)
         whiteRingView.measure(
             MeasureSpec.makeMeasureSpec(whiteSize, MeasureSpec.EXACTLY),
             MeasureSpec.makeMeasureSpec(whiteSize, MeasureSpec.EXACTLY)
         )
 
-        // 头像：每边缩进 borderWidth + whiteGap
+        // Avatar: inset by borderWidth + whiteGap on each side
         val imageInset = if (_showBorder) borderWidthPx + whiteGapPx else 0
         val imageSize = (w - imageInset * 2).coerceAtLeast(0)
         imageView.measure(
@@ -259,14 +259,14 @@ class AvatarView @JvmOverloads constructor(
         val w = right - left
         val h = bottom - top
 
-        // 渐变圈：占满
+        // Gradient circle: fill all
         gradientRingView.layout(0, 0, w, h)
 
-        // 白色圈：居中缩进 borderWidth
+        // White circle: centered, inset by borderWidth
         val whiteInset = borderWidthPx
         whiteRingView.layout(whiteInset, whiteInset, w - whiteInset, h - whiteInset)
 
-        // 头像：居中缩进 borderWidth + whiteGap（不显示 border 时缩进=0）
+        // Avatar: centered, inset by borderWidth + whiteGap (inset=0 when border hidden)
         val imageInset = if (_showBorder) borderWidthPx + whiteGapPx else 0
         imageView.layout(imageInset, imageInset, w - imageInset, h - imageInset)
 

@@ -20,9 +20,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 /**
- * 1v1 社交核心大厅单页组件。
+ * 1v1 social core lobby single-page component.
  *
- * 外部只需调用 [setPageUsers] 投喂全量数据快照。
+ * External callers simply call [setPageUsers] to feed a full data snapshot.
  */
 class MeetPage @JvmOverloads constructor(
     context: Context,

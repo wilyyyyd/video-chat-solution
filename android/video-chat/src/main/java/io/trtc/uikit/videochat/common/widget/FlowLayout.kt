@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 
 /**
- * 简易 FlowLayout：子 View 水平排列，超出宽度自动换行。
- * 用于标签展示区域。
+ * Simple FlowLayout: child views are laid out horizontally, wrapping to next line when exceeding width.
+ * Used for tag display areas.
  */
 class FlowLayout @JvmOverloads constructor(
     context: Context,
@@ -59,7 +59,7 @@ class FlowLayout @JvmOverloads constructor(
             val childHeight = child.measuredHeight + lp.topMargin + lp.bottomMargin
 
             if (currentX - paddingLeft + childWidth > maxWidth) {
-                // 换行
+                // Line break
                 currentX = paddingLeft
                 currentY += lineHeight
                 lineHeight = 0

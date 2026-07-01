@@ -10,7 +10,7 @@ import io.trtc.uikit.videochat.R
 import io.trtc.uikit.videochat.common.Theme
 
 /**
- * Ins 风格会话列表 ViewHolder：圆角卡片 + 圆形头像 + 粉色未读徽章。
+ * Instagram-style conversation list ViewHolder: rounded card + circular avatar + pink unread badge.
  */
 internal class ConversationHolder(itemView: View) : ConversationCommonHolder(itemView) {
 

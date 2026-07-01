@@ -20,13 +20,13 @@ import io.trtc.uikit.videochat.common.widget.toast.VideoChatToast
 import io.trtc.uikit.videochat.databinding.VideochatLayoutUserInfoCardBinding
 
 /**
- * 用户信息卡片组件 — 渐变光环头像 + 昵称 + 统计 + 标签 + 可选签名展开/收起。
+ * User info card component — gradient ring avatar + nickname + stats + tags + optional signature expand/collapse.
  *
- * 通用可复用：UserProfilePage 和 SettingsPage 共用。
+ * Reusable: shared by UserProfilePage and SettingsPage.
  *
- * 对外 API：
- * - [bind] 绑定用户基本信息（可选显示签名）
- * - [setStats] 更新关注/粉丝/获赞数
+ * Public API:
+ * - [bind] binds basic user info (optionally show signature)
+ * - [setStats] updates follow/follower/likes count
  */
 class UserInfoView @JvmOverloads constructor(
     context: Context,

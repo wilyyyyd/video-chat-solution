@@ -1,10 +1,10 @@
 package io.trtc.uikit.demo.topup
 
 /**
- * 充值金币选项数据模型。
+ * Data model for top-up coin options.
  *
- * @param amount 金币数量
- * @param description 描述文案（如"约5分钟通话"）
+ * @param amount number of coins
+ * @param description descriptive text (e.g. "≈5 min call")
  */
 data class CoinOption(
     val amount: Int,

@@ -17,15 +17,11 @@
     <string name="videochat_language">语言</string>
     <string name="videochat_beauty">美颜</string>
     <string name="videochat_my_gifts">我的礼物</string>
-    <string name="videochat_logout">退出登录</string>
 
     <string name="videochat_logout_title">退出登录</string>
     <string name="videochat_logout_message">确定要退出当前账号吗？</string>
     <string name="videochat_cancel">取消</string>
     <string name="videochat_confirm">确定</string>
-    <string name="videochat_language_title">语言</string>
-    <string name="videochat_lang_zh">简体中文</string>
-    <string name="videochat_lang_en">English</string>
 
     <string name="videochat_online_badge">● 在线</string>
     <string name="videochat_btn_chat">搭讪</string>

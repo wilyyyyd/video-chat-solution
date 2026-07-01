@@ -7,7 +7,6 @@ import zlib
 import random
 import requests
 
-# ── 配置 ────────────────────────────────────────────────────────────────────
 SDKAPPID = 0
 SECRETKEY = ""
 EXPIRETIME = 604800
@@ -16,66 +15,60 @@ IDENTIFIER = "administrator"
 BASE_URL = "https://console.tim.qq.com/v4/im_open_login_svc/multiaccount_import"
 PROFILE_URL = "https://console.tim.qq.com/v4/profile/portrait_set"
 
-# ── 用户数据 ──────────────────────────────────────────────────────────────────
+# ── User Data ─────────────────────────────────────────────────────────────────
 USERS = [
     {
         "UserID": "VideoChatlinxiaoyu",
-        "Nick": "林晓雨",
+        "Nick": "Aria",
         "FaceUrl": "https://im.sdk.qcloud.com/download/tuikit-resource/avatar/avatar_7.png",
         "Gender": "Gender_Type_Female",
-        "Location": "上海",
-        "Signature": "用脚步丈量世界，用歌声记录生活🌍🎤",
+        "Signature": "Chasing sunsets and cloud-nine moments 🌅✨",
         "Age": 23,
     },
     {
         "UserID": "VideoChatsu_menghan",
-        "Nick": "苏梦涵",
+        "Nick": "Scarlett",
         "FaceUrl": "https://im.sdk.qcloud.com/download/tuikit-resource/avatar/avatar_13.png",
         "Gender": "Gender_Type_Female",
-        "Location": "北京",
-        "Signature": "坚持健身，热爱跳舞，保持自律也期待浪漫的相遇✨",
+        "Signature": "Dance like nobody's watching, love like you've never been hurt 💃🖤",
         "Age": 21,
     },
     {
         "UserID": "VideoChatchenkexin",
-        "Nick": "陈可欣",
+        "Nick": "Luna",
         "FaceUrl": "https://im.sdk.qcloud.com/download/tuikit-resource/avatar/avatar_14.png",
         "Gender": "Gender_Type_Female",
-        "Location": "广州",
-        "Signature": "一半人间烟火，一半诗与画卷。很高兴认识你📖🎨",
+        "Signature": "Wandering through art galleries and rainy cobblestone streets 🎨☔",
         "Age": 25,
     },
     {
         "UserID": "VideoChatzhaoxinyi",
-        "Nick": "赵欣怡",
+        "Nick": "Zoe",
         "FaceUrl": "https://im.sdk.qcloud.com/download/tuikit-resource/avatar/avatar_17.png",
         "Gender": "Gender_Type_Female",
-        "Location": "成都",
-        "Signature": "分享美妆与穿搭，做自己生活里的女主角💄👗",
+        "Signature": "Fashion lover & skincare addict. Living my best life, one outfit at a time 💄👗",
         "Age": 22,
     },
     {
         "UserID": "VideoChatjiangsiqi",
-        "Nick": "江思琪",
+        "Nick": "Ivy",
         "FaceUrl": "https://im.sdk.qcloud.com/download/tuikit-resource/avatar/avatar_19.png",
         "Gender": "Gender_Type_Female",
-        "Location": "杭州",
-        "Signature": "用镜头捕捉光影，用瑜伽感受呼吸。来和我分享你的故事吧📷🧘‍♀️",
+        "Signature": "Yoga at sunrise, photography at golden hour. Let's make memories together 📷🧘‍♀️",
         "Age": 24,
     },
     {
         "UserID": "VideoChatzhouyaqi",
-        "Nick": "周雅琪",
+        "Nick": "Stella",
         "FaceUrl": "https://im.sdk.qcloud.com/download/tuikit-resource/avatar/avatar_21.png",
         "Gender": "Gender_Type_Female",
-        "Location": "深圳",
-        "Signature": "耳机里是随机播放的浪漫，手里是一杯不加糖的拿铁☕️🎵",
+        "Signature": "Headphones on, latte in hand. Looking for my favorite duet ☕️🎵",
         "Age": 23,
     },
 ]
 
 
-# ── UserSig 生成 ────────────────────────────────────────────────────────────
+# ── UserSig Generation ───────────────────────────────────────────────────────
 def gen_user_sig(identifier: str) -> str:
     current = int(time.time())
     obj = {
@@ -115,7 +108,7 @@ def base64_url_encode(data: bytes) -> str:
     return base64_str.replace('+', '*').replace('/', '-').replace('=', '_')
 
 
-# ── 批量导入用户 ──────────────────────────────────────────────────────────────
+# ── Batch Import Users ───────────────────────────────────────────────────────
 def import_users(users: list) -> dict:
     user_sig = gen_user_sig(IDENTIFIER)
     rand = random.randint(0, 4294967295)
@@ -134,12 +127,12 @@ def import_users(users: list) -> dict:
     return response.json()
 
 
-# ── 设置用户资料 ──────────────────────────────────────────────────────────────
+# ── Set User Profiles ─────────────────────────────────────────────────────────
 def build_profile_items(user: dict) -> list:
-    """构建 portrait_set 需要的 ProfileItem 数组"""
+    """Build ProfileItem array required by portrait_set API."""
     items = []
 
-    # 标配资料字段
+    # Standard profile fields
     def add(tag: str, value):
         if value:
             items.append({"Tag": tag, "Value": value})
@@ -148,7 +141,7 @@ def build_profile_items(user: dict) -> list:
     add("Tag_Profile_IM_Gender", user.get("Gender", ""))
     add("Tag_Profile_IM_SelfSignature", user.get("Signature", ""))
 
-    # Tag_Profile_IM_BirthDay 是 uint32 类型，直接存年龄
+    # Tag_Profile_IM_BirthDay expects uint32, use age directly
     age = user.get("Age", 0)
     if age > 0:
         items.append({"Tag": "Tag_Profile_IM_BirthDay", "Value": age})
@@ -157,7 +150,7 @@ def build_profile_items(user: dict) -> list:
 
 
 def set_portrait(user_id: str, profile_items: list) -> dict:
-    """调用 profile/portrait_set 设置单个用户资料"""
+    """Call profile/portrait_set to set a single user's profile."""
     user_sig = gen_user_sig(IDENTIFIER)
     rand = random.randint(0, 4294967295)
 
@@ -178,45 +171,45 @@ def set_portrait(user_id: str, profile_items: list) -> dict:
     return response.json()
 
 
-# ── 主流程 ────────────────────────────────────────────────────────────────────
+# ── Main ──────────────────────────────────────────────────────────────────────
 
 
 def main():
-    print(f"开始批量导入 {len(USERS)} 个用户...")
+    print(f"Importing {len(USERS)} users...")
     print(f"SDKAppID: {SDKAPPID}")
     print(f"Identifier: {IDENTIFIER}")
     print("=" * 60)
 
-    # 1. 批量导入用户
+    # 1. Batch import users
     result = import_users(USERS)
 
     if result.get("ErrorCode") != 0:
-        print(f"\n❌ 导入失败: ErrorCode={result.get('ErrorCode')}, ErrorInfo={result.get('ErrorInfo')}")
+        print(f"\n❌ Import failed: ErrorCode={result.get('ErrorCode')}, ErrorInfo={result.get('ErrorInfo')}")
         return
 
     fail_accounts = result.get("FailAccounts", [])
     if fail_accounts:
-        print(f"\n⚠️  部分导入失败: {fail_accounts}")
+        print(f"\nWarning: Some imports failed: {fail_accounts}")
 
-    print(f"\n✅ 导入完成! 开始设置用户资料...")
+    print(f"\n Import complete! Setting user profiles...")
     print("-" * 60)
 
-    # 2. 逐个设置用户资料
+    # 2. Set profiles one by one
     for user in USERS:
         user_id = user["UserID"]
         nick = user["Nick"]
         profile_items = build_profile_items(user)
 
-        print(f"  设置 [{user_id}] ({nick}) ... ", end="", flush=True)
+        print(f"  Setting [{user_id}] ({nick}) ... ", end="", flush=True)
         result = set_portrait(user_id, profile_items)
 
         if result.get("ErrorCode") == 0:
-            print("✅")
+            print("success")
         else:
-            print(f"❌ ErrorCode={result.get('ErrorCode')}, ErrorInfo={result.get('ErrorInfo')}")
+            print(f"failel: ErrorCode={result.get('ErrorCode')}, ErrorInfo={result.get('ErrorInfo')}")
 
     print("\n" + "=" * 60)
-    print("导入的 UserID 列表（用于 MainActivity）:")
+    print("User ID list (for MainActivity):")
     for user in USERS:
         print(f'  "{user["UserID"]}",')
 

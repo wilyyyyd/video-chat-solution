@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- 选中态：粉紫渐变 -->
+    <!-- Checked: pink-purple gradient -->
     <item android:state_checked="true">
         <shape android:shape="rectangle">
             <size android:width="48dp" android:height="24dp" />
@@ -11,7 +11,7 @@
             <corners android:radius="12dp" />
         </shape>
     </item>
-    <!-- 未选中态：浅灰 -->
+    <!-- Unchecked: light gray -->
     <item>
         <shape android:shape="rectangle">
             <size android:width="48dp" android:height="24dp" />

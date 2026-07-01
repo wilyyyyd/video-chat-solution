@@ -12,16 +12,16 @@ import io.trtc.uikit.videochat.R
 import io.trtc.uikit.videochat.common.Theme
 
 /**
- * 自绘心形图标，支持空心/实心两种状态：
- * - 未关注：紫色描边空心心形
- * - 已关注：粉红色实心心形
+ * Custom-drawn heart icon supporting two states:
+ * - Unfollowed: purple stroke outline heart
+ * - Followed: pink solid filled heart
  *
- * 使用方式：
+ * Usage:
  * ```kotlin
  * val heart = FollowButton(context).apply {
  *     layoutParams = LayoutParams(dp(32), dp(32))
  * }
- * heart.setFilled(true)  // 切换为已关注
+ * heart.setFilled(true)  // Switch to followed
  * ```
  */
 class FollowButton @JvmOverloads constructor(
@@ -67,13 +67,13 @@ class FollowButton @JvmOverloads constructor(
         val bottom = h - padding
 
         path.moveTo(cx, bottom * 0.88f)
-        // 左半心
+        // Left half of heart
         path.cubicTo(
             padding - w * 0.02f, h * 0.52f,
             padding + w * 0.02f, top,
             cx, top + h * 0.18f
         )
-        // 右半心
+        // Right half of heart
         path.cubicTo(
             w - padding - w * 0.02f, top,
             w - padding + w * 0.02f, h * 0.52f,

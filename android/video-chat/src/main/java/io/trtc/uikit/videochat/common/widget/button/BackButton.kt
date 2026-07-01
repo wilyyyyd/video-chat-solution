@@ -12,13 +12,13 @@ import com.tencent.qcloud.tuicore.util.ScreenUtil.dip2px
 import io.trtc.uikit.videochat.R
 
 /**
- * 半透明圆形返回按钮 — 白色箭头 + 半透明黑底。
+ * Semi-transparent circular back button — white arrow + semi-transparent black background.
  *
- * 用法：
+ * Usage:
  * ```
  * root.addView(BackButton(this))
  * ```
- * 默认点击会 finish() 当前 Activity。
+ * Default click behavior calls finish() on the current Activity.
  */
 class BackButton @JvmOverloads constructor(
     context: Context,

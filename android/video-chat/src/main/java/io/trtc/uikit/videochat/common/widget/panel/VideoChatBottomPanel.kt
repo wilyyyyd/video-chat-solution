@@ -17,9 +17,9 @@ import io.trtc.uikit.videochat.R
 import io.trtc.uikit.videochat.common.Theme
 
 /**
- * 底部弹出面板 — 从底部滑入，顶部圆角白色卡片 + 粉紫渐变拖拽条。
+ * Bottom sliding panel — slides in from bottom, top-rounded white card + pink-purple gradient drag handle.
  *
- * 使用方式：
+ * Usage:
  * ```
  * VideoChatBottomPanel(context)
  *     .setContent(myView)
@@ -89,7 +89,7 @@ open class VideoChatBottomPanel(context: Context) : Dialog(context, R.style.Vide
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 dip2px(16f)
             )
-            // 居中的粉紫渐变 pill
+            // Centered pink-purple gradient pill
             val pill = View(context).apply {
                 background = GradientDrawable(
                     GradientDrawable.Orientation.LEFT_RIGHT,
@@ -119,7 +119,7 @@ open class VideoChatBottomPanel(context: Context) : Dialog(context, R.style.Vide
 
     override fun show() {
         super.show()
-        // 底部滑入动画
+        // Slide-in from bottom animation
         panel.post {
             panel.translationY = panel.height.toFloat()
             panel.animate()

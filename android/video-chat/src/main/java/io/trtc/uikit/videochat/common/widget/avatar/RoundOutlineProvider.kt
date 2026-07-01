@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewOutlineProvider
 
 /**
- * 圆角裁切 OutlineProvider — 让 View 按指定圆角半径裁切内容。
+ * Rounded-corner clipping OutlineProvider — clips View content by the specified corner radius.
  */
 class RoundOutlineProvider(private val radiusPx: Float) : ViewOutlineProvider() {
 

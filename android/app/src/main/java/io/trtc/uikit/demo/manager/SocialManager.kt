@@ -16,34 +16,29 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-/**
- * 社交数据管理器，封装用户数据获取和 IM SDK 交互。
- */
 class SocialManager(private val bioFallback: String) {
 
     companion object {
         private const val TAG = "SocialManager"
 
         /**
-         * 允许通话的最大时长（秒）。
-         * 修改此值可调整每次通话的最长时间。
+         * Maximum allowed call duration (in seconds).
+         * Modify this value to change the maximum duration per call.
          */
         const val MAX_CALL_DURATION_SECONDS = 120
 
         /**
-         * 距通话结束多少秒时弹出充值提示。
-         * 修改此值可调整提示弹出的时机。
+         * Seconds remaining in the call when the top-up reminder appears.
+         * Modify this value to adjust when the reminder is triggered.
          */
         const val TIMEOUT_WARNING_THRESHOLD_SECONDS = 100
     }
 
     /**
-     * 通话计时回调，app 层实现此接口来展示充值弹窗或执行超时逻辑。
+     * Call duration callback. The app layer implements this interface to show top-up prompts or handle timeout logic.
      */
     interface CallTimerCallback {
-        /** 距离通话超时还剩 [remainingSeconds] 秒，应展示充值提示 */
         fun onTimeoutWarning(remainingSeconds: Int)
-        /** 通话时长已达上限，即将自动挂断 */
         fun onCallTimeout()
     }
 
@@ -90,14 +85,12 @@ class SocialManager(private val bioFallback: String) {
         }
 
         val remaining = MAX_CALL_DURATION_SECONDS - durationSeconds
-        // 到达超时阈值，弹出充值提示（仅弹一次）
         if (remaining <= TIMEOUT_WARNING_THRESHOLD_SECONDS && !hasShownWarning) {
             hasShownWarning = true
             Log.i(TAG, "Call timeout warning: ${remaining}s remaining")
             callTimerCallback?.onTimeoutWarning(remaining)
         }
 
-        // 时间耗尽，自动挂断
         if (remaining <= 0) {
             Log.i(TAG, "Call timeout, auto hangup")
             callTimerCallback?.onCallTimeout()
@@ -123,8 +116,6 @@ class SocialManager(private val bioFallback: String) {
         "VideoChatzhaoxinyi", "VideoChatjiangsiqi", "VideoChatzhouyaqi"
     )
 
-    // ── 附近用户 ──────────────────────────────────────────
-
     fun fetchNearbyUsers(callback: UsersCallback) {
         V2TIMManager.getInstance().getUsersInfo(
             mockRecommendedUserID,
@@ -141,8 +132,6 @@ class SocialManager(private val bioFallback: String) {
             }
         )
     }
-
-    // ── 关注列表 ──────────────────────────────────────────
 
     fun fetchFollowingList(callback: UsersCallback) {
         V2TIMManager.getFriendshipManager().getMyFollowingList(
@@ -182,8 +171,6 @@ class SocialManager(private val bioFallback: String) {
             }
         )
     }
-
-    // ── 未读消息数 ────────────────────────────────────────
 
     private var unreadObserver: UnreadCountObserver? = null
     private val conversationListener = object : V2TIMConversationListener() {

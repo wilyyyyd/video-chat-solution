@@ -10,11 +10,11 @@ import io.trtc.uikit.videochat.R
 import io.trtc.uikit.videochat.common.Theme
 
 /**
- * 粉紫渐变风格 Toast — 屏幕居中显示。
+ * Pink-purple gradient style Toast — centered on screen.
  *
- * 使用方式：
+ * Usage:
  * ```
- * VideoChatToast.show("操作成功")
+ * VideoChatToast.show("Operation successful")
  * ```
  */
 object VideoChatToast {

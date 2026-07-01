@@ -22,8 +22,8 @@ import io.trtc.uikit.videochat.common.Theme
 import io.trtc.uikit.videochat.page.conversation.ConversationPage
 
 /**
- * 消息页面，顶部 Tab 切换消息 / 联系人。
- * 由 app 层组装，联系人能力在 app 层集成。
+ * Message page with top tabs switching between Messages / Contacts.
+ * Assembled by the app layer; contacts functionality is integrated at the app level.
  */
 class MessagePage : Fragment() {
 

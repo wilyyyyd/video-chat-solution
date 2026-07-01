@@ -9,20 +9,20 @@ import android.graphics.drawable.shapes.RectShape
 import android.widget.TextView
 
 /**
- * 全局主题配置，集中管理色彩和渐变样式。
+ * Global theme configuration that centralizes color and gradient style management.
  *
- * 在 View 代码中始终引用此处的常量，避免硬编码颜色值。
+ * Always reference constants here in View code to avoid hardcoding color values.
  */
 object Theme {
 
-    // ── 品牌色 ──
+    // ── Brand Colors ──
     const val PINK = 0xFFFF2D78.toInt()
     const val PURPLE = 0xFFB44FFF.toInt()
     const val DEEP_PURPLE = 0xFF7C3AED.toInt()
 
     val GRADIENT_PINK_PURPLE = intArrayOf(PINK, PURPLE)
 
-    // ── 文字色 ──
+    // ── Text Colors ──
     const val TEXT_WHITE = 0xFFFFFFFF.toInt()
     const val TEXT_WHITE_80 = 0xCCFFFFFF.toInt()
     const val TEXT_PRIMARY = 0xFF1F2937.toInt()
@@ -30,7 +30,7 @@ object Theme {
     const val TEXT_HINT = 0xFF9CA3AF.toInt()
     const val TEXT_DANGER = 0xFFEF4444.toInt()
 
-    // ── 背景色 ──
+    // ── Background Colors ──
     const val BG_PAGE_TOP = 0xFFFDF2F8.toInt()
     const val BG_PAGE_MID = 0xFFFAF5FF.toInt()
     const val BG_PAGE_BOTTOM = 0xFFEFF6FF.toInt()
@@ -44,30 +44,30 @@ object Theme {
     const val BG_TAG_PURPLE_LIGHT = 0xFFF9F0FF.toInt()
     const val STROKE_TAG_LIGHT = 0xFFD8B4FE.toInt()
     const val TEXT_TAG_LIGHT = 0xFFA855F7.toInt()
-    const val BG_TAG_FROSTED = 0x40FFFFFF.toInt() // 白色 25% 透明度（同未关注按钮）
+    const val BG_TAG_FROSTED = 0x40FFFFFF.toInt() // 25% white (same as unfollowed button)
 
-    // ── 封面叠加层 ──
+    // ── Cover Overlay ──
     const val COVER_OVERLAY_TOP = 0x4D000000.toInt()
     const val COVER_OVERLAY_MID = 0x1A000000.toInt()
     const val COVER_OVERLAY_BOTTOM = 0x66000000.toInt()
     val COVER_OVERLAY_COLORS = intArrayOf(COVER_OVERLAY_TOP, COVER_OVERLAY_MID, COVER_OVERLAY_BOTTOM)
     const val COVER_TRANSITION_END = 0xCCFDF2F8.toInt()
 
-    // ── 渐变色 Drawable ──
+    // ── Gradient Drawables ──
 
-    /** 圆角粉紫渐变 Drawable */
+    /** Rounded pink-purple gradient Drawable */
     internal fun roundedGradient(cornerRadiusPx: Float): GradientDrawable {
         return horizontalGradient().apply { cornerRadius = cornerRadiusPx }
     }
 
-    /** 水平粉紫渐变 */
+    /** Horizontal pink-purple gradient */
     private fun horizontalGradient(): GradientDrawable {
         return GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, GRADIENT_PINK_PURPLE)
     }
 
-    // ── 文字渐变 ──
+    // ── Text Gradients ──
 
-    /** 对 TextView 应用粉紫水平渐变 */
+    /** Apply pink-purple horizontal gradient to a TextView */
     fun applyGradientText(tv: TextView) {
         tv.post {
             val width = tv.paint.measureText(tv.text.toString())
@@ -81,7 +81,7 @@ object Theme {
         }
     }
 
-    /** 切换 Tab 文字样式 */
+    /** Switch tab text style */
     fun toggleTabText(tv: TextView, selected: Boolean) {
         if (selected) {
             applyGradientText(tv)
@@ -91,7 +91,7 @@ object Theme {
         }
     }
 
-    /** 页面三色纵向渐变背景（粉→紫→蓝） */
+    /** Tricolor vertical gradient page background (pink → purple → blue) */
     fun pageBackground(): PaintDrawable {
         return PaintDrawable().apply {
             shape = RectShape()

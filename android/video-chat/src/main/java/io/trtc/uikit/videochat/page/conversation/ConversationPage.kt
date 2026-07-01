@@ -20,9 +20,9 @@ import io.trtc.uikit.videochat.common.Theme
 import io.trtc.uikit.videochat.common.utils.VideoChatDataReporter
 
 /**
- * 会话列表页面，纯会话列表展示。
+ * Conversation list page — pure conversation list display.
  *
- * 使用方式：
+ * Usage:
  * ```
  * val conversationPage = ConversationPage()
  * supportFragmentManager.beginTransaction()

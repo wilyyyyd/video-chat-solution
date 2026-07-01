@@ -16,9 +16,9 @@ import io.trtc.uikit.videochat.common.widget.toast.VideoChatToast
 import io.trtc.uikit.demo.R
 
 /**
- * 通话中余额不足时弹出的充值底部弹窗。
+ * Bottom sheet for top-up when running low on coins during a call.
  *
- * 使用方式：
+ * Usage:
  * ```
  * TopUpBottomSheetFragment.newInstance().show(supportFragmentManager, "topup")
  * ```
@@ -55,11 +55,19 @@ class TopUpBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun setupCoinGrid(view: View) {
+        val coinOptions = listOf(
+            CoinOption(50, getString(R.string.app_topup_coin_50)),
+            CoinOption(100, getString(R.string.app_topup_coin_100)),
+            CoinOption(150, getString(R.string.app_topup_coin_150)),
+            CoinOption(300, getString(R.string.app_topup_coin_300)),
+            CoinOption(400, getString(R.string.app_topup_coin_400)),
+            CoinOption(600, getString(R.string.app_topup_coin_600)),
+        )
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_coin_options)
         val spanCount = 3
         recyclerView.layoutManager = GridLayoutManager(requireContext(), spanCount)
         recyclerView.addItemDecoration(CoinGridSpacingDecoration(spanCount, dpToPx(10)))
-        recyclerView.adapter = CoinOptionAdapter(COIN_OPTIONS, selectedPosition) { position ->
+        recyclerView.adapter = CoinOptionAdapter(coinOptions, selectedPosition) { position ->
             selectedPosition = position
         }
     }
@@ -67,7 +75,7 @@ class TopUpBottomSheetFragment : BottomSheetDialogFragment() {
     private fun setupPayButton(view: View) {
         val btnPay = view.findViewById<TextView>(R.id.btn_pay)
         btnPay.setOnClickListener {
-            VideoChatToast.show("充值系统还需您的协助～")
+            VideoChatToast.show(getString(R.string.app_topup_not_ready))
         }
     }
 
@@ -76,10 +84,6 @@ class TopUpBottomSheetFragment : BottomSheetDialogFragment() {
         return (dp * density + 0.5f).toInt()
     }
 
-    /**
-     * 金币选项网格间距 ItemDecoration。
-     * 在每个 item 四周添加均匀间距，使卡片之间有呼吸感。
-     */
     private class CoinGridSpacingDecoration(
         private val spanCount: Int,
         private val spacing: Int,
@@ -89,11 +93,9 @@ class TopUpBottomSheetFragment : BottomSheetDialogFragment() {
             val position = parent.getChildAdapterPosition(view)
             val column = position % spanCount
 
-            // 水平间距：均匀分配到每列左右
             outRect.left = spacing - column * spacing / spanCount
             outRect.right = (column + 1) * spacing / spanCount
 
-            // 垂直间距：第一行不加顶部间距，其余行加顶部间距
             if (position >= spanCount) {
                 outRect.top = spacing
             }
@@ -101,16 +103,6 @@ class TopUpBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     companion object {
-        /** 充值金币选项列表：金币数量 → 描述 */
-        private val COIN_OPTIONS = listOf(
-            CoinOption(50, "约5分钟通话"),
-            CoinOption(100, "约10分钟通话"),
-            CoinOption(150, "约15分钟通话"),
-            CoinOption(300, "约30分钟通话"),
-            CoinOption(400, "约40分钟通话"),
-            CoinOption(600, "约60分钟通话"),
-        )
-
         fun newInstance(): TopUpBottomSheetFragment {
             return TopUpBottomSheetFragment()
         }

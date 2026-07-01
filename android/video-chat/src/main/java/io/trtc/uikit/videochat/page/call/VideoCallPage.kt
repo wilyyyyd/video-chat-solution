@@ -307,8 +307,8 @@ class VideoCallPage : FullScreenActivity() {
         private const val CALL_STARTED_HINT_DURATION_MS = 5500L
 
         /**
-         * 当前存活的 VideoCallActivity 弱引用。
-         * app 层可通过此引用获取 Activity 实例以展示弹窗（如充值提示）。
+         * Weak reference to the currently alive VideoCallActivity.
+         * The app layer can use this reference to get the Activity instance for showing dialogs (e.g. top-up prompt).
          */
         var currentInstance: WeakReference<VideoCallPage>? = null
             private set

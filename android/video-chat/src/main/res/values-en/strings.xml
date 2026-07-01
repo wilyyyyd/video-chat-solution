@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="videochat_follow">+ Follow</string>
+    <string name="videochat_followed">Following</string>
+    <string name="videochat_view_profile">View %s\'s profile (coming soon)</string>
+
+    <string name="videochat_stat_following">Following</string>
+    <string name="videochat_stat_followers">Followers</string>
+    <string name="videochat_stat_likes">Likes</string>
+
+    <string name="videochat_section_interests">Interests</string>
+    <string name="videochat_loading">Loading…</string>
+    <string name="videochat_default_signature">This user hasn\'t filled out their bio yet</string>
+
+    <string name="videochat_online_status">Online Status</string>
+    <string name="videochat_language">Language</string>
+    <string name="videochat_beauty">Beauty</string>
+    <string name="videochat_my_gifts">My Gifts</string>
+
+    <string name="videochat_logout_message">Are you sure you want to log out?</string>
+    <string name="videochat_cancel">Cancel</string>
+    <string name="videochat_confirm">OK</string>
+
+    <string name="videochat_online_badge">● Online</string>
+    <string name="videochat_btn_chat">Hi</string>
+
+    <string-array name="videochat_default_tags">
+        <item>Singing</item>
+        <item>Travel</item>
+        <item>Beauty</item>
+        <item>Movies</item>
+        <item>Music</item>
+    </string-array>
+    <string name="videochat_voice_changer">Voice Changer</string>
+    <string name="videochat_wip_toast">Coming soon</string>
+
+    <string name="videochat_call">Call</string>
+    <string name="videochat_like">Like</string>
+
+    <string name="videochat_gender_male">♂ Male</string>
+    <string name="videochat_gender_female">♀ Female</string>
+    <string name="videochat_gender_secret">Private</string>
+
+    <string name="videochat_toast_other_party_hung_up">The other party hung up. Call ended.</string>
+    <string name="videochat_toast_other_party_declined">The other party declined your call.</string>
+    <string name="videochat_toast_other_party_no_response">The other party didn\'t answer. Please try again later.</string>
+    <string name="videochat_toast_other_party_busy">The other party is busy. Please try again later.</string>
+    <string name="videochat_toast_other_party_cancelled">The other party cancelled the call.</string>
+    <string name="videochat_toast_error_already_in_call">You are currently on a call. Please end it before making another call.</string>
+    <string name="videochat_toast_error_call_self">Cannot call yourself.</string>
+
+    <string name="videochat_permission_camera">Camera</string>
+    <string name="videochat_permission_microphone">Microphone</string>
+    <string name="videochat_permission_bluetooth">Bluetooth</string>
+    <string name="videochat_permission_separator">, </string>
+    <string name="videochat_permission_tips">%s permission not granted. Cannot start audio/video call.</string>
+    <string name="videochat_permission_title">%s requests %s permission</string>
+    <string name="videochat_permission_camera_reason">Go to \"Settings > %s\" to enable camera permission.</string>
+    <string name="videochat_permission_mic_reason">Go to \"Settings > %s\" to enable microphone permission.</string>
+    <string name="videochat_permission_bluetooth_reason">To connect Bluetooth devices during audio/video calls, we need permission to find and connect nearby devices.</string>
+    <string name="videochat_permission_enter_pip_fail">Failed to enter picture-in-picture. Please check permissions.</string>
+
+    <string name="videochat_text_video_call">Video Call</string>
+    <string name="videochat_text_decline">Decline</string>
+    <string name="videochat_text_dialing">Answer</string>
+    <string name="videochat_text_hangup">Hang Up</string>
+    <string name="videochat_btn_cancel">Cancel</string>
+    <string name="videochat_text_switch_camera">Flip Camera</string>
+    <string name="videochat_text_enable_camera">Camera On</string>
+    <string name="videochat_text_disable_camera">Camera Off</string>
+    <string name="videochat_text_blur_background">Blur Background</string>
+    <string name="videochat_text_speaker">Speaker</string>
+    <string name="videochat_text_earpiece">Earpiece</string>
+    <string name="videochat_text_gift">Gift</string>
+    <string name="videochat_text_beauty">Beauty</string>
+    <string name="videochat_text_mic">Mic</string>
+    <string name="videochat_text_enable_mute">Mic Off</string>
+    <string name="videochat_text_disable_mute">Mic On</string>
+    <string name="videochat_text_hangup_hint">Are you sure you want to hang up?</string>
+    <string name="videochat_call_started_cost_hint">10 coins per minute after connected</string>
+
+    <string name="videochat_expand">Expand</string>
+    <string name="videochat_collapse">Collapse</string>
+    <string name="videochat_age_format">%d years old</string>
+    <string name="videochat_moments">Moments</string>
+
+    <string name="videochat_follow_failed">Failed to follow. Please try again later.</string>
+    <string name="videochat_unfollow_failed">Failed to unfollow. Please try again later.</string>
+
+    <string name="videochat_user_id_format">ID: %s</string>
+    <string name="videochat_user_id_copied">ID copied</string>
+    <string name="videochat_text_no_users">No users yet</string>
+</resources>

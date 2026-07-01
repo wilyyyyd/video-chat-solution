@@ -7,8 +7,8 @@ import com.tencent.qcloud.tuikit.tuiconversation.classicui.widget.ConversationLi
 import io.trtc.uikit.videochat.R
 
 /**
- * 继承 ConversationListAdapter，重写普通会话 ViewHolder 为自定义卡片布局。
- * 特殊类型（搜索头、加载中、空态）交回父类处理。
+ * Extends ConversationListAdapter, overrides normal conversation ViewHolder with a custom card layout.
+ * Special types (search header, loading, empty state) are delegated back to the parent class.
  */
 internal class ConversationAdapter : ConversationListAdapter() {
 

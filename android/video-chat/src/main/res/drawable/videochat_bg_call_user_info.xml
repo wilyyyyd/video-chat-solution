@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 通话页用户信息药丸背景：半透明毛玻璃效果 -->
+<!-- Call page user info pill background: semi-transparent frosted glass effect -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <solid android:color="#4D000000" />

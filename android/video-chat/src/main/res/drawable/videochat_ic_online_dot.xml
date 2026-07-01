@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 在线状态绿色圆点 -->
+<!-- Online status green dot -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- 白色边框 -->
+    <!-- White border -->
     <item>
         <shape android:shape="oval">
             <solid android:color="#FFFFFF" />
         </shape>
     </item>
-    <!-- 绿色圆心 -->
+    <!-- Green center -->
     <item
         android:bottom="1.5dp"
         android:left="1.5dp"

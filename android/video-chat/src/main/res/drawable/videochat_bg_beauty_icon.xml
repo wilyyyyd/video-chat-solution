@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 美颜按钮图标背景：半透明黑底圆形，白色边框 -->
+<!-- Beauty button icon background: semi-transparent black circle with white border -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="oval">

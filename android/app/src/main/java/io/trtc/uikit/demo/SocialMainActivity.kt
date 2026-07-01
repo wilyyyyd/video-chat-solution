@@ -73,10 +73,6 @@ class SocialMainActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * 在通话界面上弹出充值弹窗。
-     * 通过 VideoCallActivity.currentInstance 获取通话 Activity 的 FragmentManager。
-     */
     private fun showTopUpSheet() {
         val callActivity = VideoCallPage.currentInstance?.get() ?: return
         val fragmentManager = callActivity.supportFragmentManager

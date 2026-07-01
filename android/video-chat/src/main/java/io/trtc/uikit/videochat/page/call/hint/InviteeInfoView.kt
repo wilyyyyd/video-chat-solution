@@ -15,9 +15,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 
 /**
- * 通话页左上角用户信息 pill：头像 + 关注按钮。
+ * Call page top-left user info pill: avatar + follow button.
  *
- * 用法：view.bind(remoteUserId, lifecycleOwner)
+ * Usage: view.bind(remoteUserId, lifecycleOwner)
  */
 class InviteeInfoView @JvmOverloads constructor(
     context: Context,

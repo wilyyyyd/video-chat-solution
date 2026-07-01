@@ -11,15 +11,15 @@ import io.trtc.uikit.videochat.R
 import io.trtc.uikit.videochat.common.Theme
 
 /**
- * 主题风格确认弹窗 — 粉紫渐变确认按钮 + 可选取消按钮。
+ * Themed confirmation dialog — pink-purple gradient confirm button + optional cancel button.
  *
- * 使用方式：
+ * Usage:
  * ```
  * VideoChatDialog(context)
- *     .setTitle("退出登录")
- *     .setMessage("确定要退出当前账号吗？")
- *     .setConfirmText("确定")
- *     .setCancelText("取消")
+ *     .setTitle("Log out")
+ *     .setMessage("Are you sure you want to log out?")
+ *     .setConfirmText("Confirm")
+ *     .setCancelText("Cancel")
  *     .setOnConfirmListener { }
  *     .show()
  * ```
@@ -28,7 +28,7 @@ class VideoChatDialog(context: Context) : Dialog(context, R.style.VideoChatDialo
 
     private var title: String = ""
     private var message: String = ""
-    private var confirmText: String = "确定"
+    private var confirmText: String = "Confirm"
     private var cancelText: String? = null
     private var onConfirmListener: (() -> Unit)? = null
     private var onCancelListener: (() -> Unit)? = null

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">videochat</string>
+    <string name="app_main_title">Video Chat</string>
+    <string name="app_user_id">UserId</string>
+    <string name="app_hint_user_id">Enter UserId</string>
+    <string name="app_btn_login">Login</string>
+
+    <!-- Pages -->
+    <string name="app_page_nearby">Nearby</string>
+    <string name="app_page_follow">Following</string>
+
+    <!-- Bottom nav -->
+    <string name="app_nav_meet">Meet</string>
+    <string name="app_nav_message">Messages</string>
+    <string name="app_nav_mine">Me</string>
+
+    <!-- Message page tabs -->
+    <string name="app_tab_messages">Messages</string>
+    <string name="app_tab_contacts">Contacts</string>
+
+    <!-- Login -->
+    <string name="app_userid_empty">UserId cannot be empty</string>
+    <string name="app_login_failed">Login failed</string>
+
+    <!-- Data import -->
+    <string name="app_data_not_imported">User data not imported</string>
+    <string name="app_data_not_imported_desc">Run android/create_robot.py to generate user data for a better experience</string>
+
+    <!-- Common -->
+    <string name="app_confirm">OK</string>
+    <string name="app_bio_fallback">This user hasn\'t filled out their bio yet</string>
+
+    <!-- Top-up -->
+    <string name="app_topup_title">Top-up Center</string>
+    <string name="app_topup_coin_50">≈5 min call</string>
+    <string name="app_topup_coin_100">≈10 min call</string>
+    <string name="app_topup_coin_150">≈15 min call</string>
+    <string name="app_topup_coin_300">≈30 min call</string>
+    <string name="app_topup_coin_400">≈40 min call</string>
+    <string name="app_topup_coin_600">≈60 min call</string>
+    <string name="app_topup_not_ready">Top-up system needs your assistance~</string>
+</resources>

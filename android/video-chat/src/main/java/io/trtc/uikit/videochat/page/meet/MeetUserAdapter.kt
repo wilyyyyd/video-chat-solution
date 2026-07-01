@@ -21,7 +21,7 @@ import io.trtc.uikit.videochat.manager.UserInfoStore
 import io.trtc.uikit.videochat.page.profile.UserProfilePage
 
 /**
- * MeetPage 的 RecyclerView Adapter，支持双列卡片 / 单列列表两种布局。
+ * RecyclerView Adapter for MeetPage, supporting two layouts: two-column card / single-column list.
  */
 internal class MeetUserAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

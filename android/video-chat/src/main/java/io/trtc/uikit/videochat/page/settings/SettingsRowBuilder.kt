@@ -15,9 +15,9 @@ import io.trtc.uikit.videochat.R
 import io.trtc.uikit.videochat.common.Theme
 
 /**
- * SettingsPage 的设置行 View 构建器。
+ * Settings row View builder for SettingsPage.
  *
- * 所有方法都是 Context 扩展函数，在 Fragment 中通过 `requireContext().xxx()` 调用。
+ * All methods are Context extension functions, called via `requireContext().xxx()` in a Fragment.
  */
 
 internal fun Context.dividerView(): View {
@@ -29,7 +29,6 @@ internal fun Context.dividerView(): View {
     }
 }
 
-/** 创建带图标的设置行（美颜、礼物等） */
 internal fun Context.buildSettingsRow(
     label: String,
     iconRes: Int,
@@ -49,7 +48,6 @@ internal fun Context.buildSettingsRow(
     return row
 }
 
-/** 在线状态开关行 */
 internal fun Context.buildOnlineStatusRow(
     checked: Boolean,
     onToggleChanged: ((Boolean) -> Unit)? = null

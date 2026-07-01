@@ -182,7 +182,7 @@ class SettingsPage : Fragment() {
     private fun buildLogoutButton(): TextView {
         return TextView(safeContext).apply {
             layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, dip2px(48f)).apply { topMargin = dip2px(16f) }
-            text = getString(R.string.videochat_logout)
+            text = getString(R.string.videochat_logout_title)
             setTextColor(Theme.TEXT_DANGER)
             setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 14f)
             setTypeface(null, android.graphics.Typeface.BOLD)

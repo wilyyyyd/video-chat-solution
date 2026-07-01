@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 通话页左上角用户信息 pill：头像 + 关注按钮 + 通话计时 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ll_root"
@@ -22,7 +21,7 @@
 
     <TextView
         android:id="@+id/btn_follow"
-        android:layout_width="46dp"
+        android:layout_width="56dp"
         android:layout_height="24dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/videochat_bg_btn_follow"

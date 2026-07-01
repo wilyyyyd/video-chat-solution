@@ -15,10 +15,10 @@ import io.trtc.uikit.videochat.R
 import io.trtc.uikit.videochat.databinding.VideochatLayoutProfileMomentsBinding
 
 /**
- * 动态照片区域 — 白色圆角卡片 + "动态"标题 + 2×3 照片网格。
+ * Moments photo area — white rounded card + "Moments" title + 2×3 photo grid.
  *
- * 布局由 [videochat_layout_profile_moments.xml] 声明，
- * 边距由父容器通过 LayoutParams 控制。
+ * Layout is declared by [videochat_layout_profile_moments.xml],
+ * margins are controlled by the parent container via LayoutParams.
  */
 class UserProfileMomentsView @JvmOverloads constructor(
     context: Context,

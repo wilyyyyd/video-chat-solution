@@ -14,7 +14,7 @@ import io.trtc.uikit.demo.manager.SocialManager
 import io.trtc.uikit.demo.meet.MeetPageFragment
 
 /**
- * 1v1 社交娱乐主容器 Fragment（底部导航栏：交友、消息、我的）
+ * 1v1 social entertainment main container Fragment (bottom nav: Meet, Messages, Profile)
  */
 class SocialMainFragment : Fragment() {
 

@@ -18,7 +18,7 @@ import io.trtc.uikit.videochat.page.meet.MeetPage
 import io.trtc.uikit.videochat.R as VideoChatR
 
 /**
- * 多 Tab 核心 UI 容器，管理 ViewPager2 + 顶部 Tab + 布局切换。
+ * Core multi-tab UI container that manages ViewPager2 + top tabs + layout toggle.
  */
 class MeetPageFragment : Fragment() {
 

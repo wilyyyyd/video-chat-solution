@@ -30,4 +30,14 @@
     <!-- Common -->
     <string name="app_confirm">确定</string>
     <string name="app_bio_fallback">这个人很懒，什么都没写</string>
+
+    <!-- Top-up -->
+    <string name="app_topup_title">充值中心</string>
+    <string name="app_topup_coin_50">约5分钟通话</string>
+    <string name="app_topup_coin_100">约10分钟通话</string>
+    <string name="app_topup_coin_150">约15分钟通话</string>
+    <string name="app_topup_coin_300">约30分钟通话</string>
+    <string name="app_topup_coin_400">约40分钟通话</string>
+    <string name="app_topup_coin_600">约60分钟通话</string>
+    <string name="app_topup_not_ready">充值系统还需您的协助～</string>
 </resources>
